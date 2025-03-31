@@ -1,4 +1,3 @@
-<script>
     function toggleMenu() {
       const menu = document.getElementById('dropdown-menu');
       menu.classList.toggle('hidden');
@@ -267,5 +266,3 @@ function arenaSweep() {
       else if (event.key === 'q') playerRotate(-1);
       else if (event.key === 'w') playerRotate(1);
     });
-
-  </script>
