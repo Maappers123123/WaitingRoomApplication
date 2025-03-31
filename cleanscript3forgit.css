@@ -1,0 +1,646 @@
+<style>
+h1, h2, p, button {
+  font-family: 'Roboto Slab', serif;
+}
+
+body {
+  font-family: 'Roboto Slab', serif;
+}
+
+.hidden {
+  display: none !important;
+}
+   *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+main > section {
+  max-width: 100%;
+  margin: auto;
+  padding: 1rem;
+}
+
+h1, h2 {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  z-index: 0;
+}
+
+    .container {
+      max-width: 480px;
+      margin: auto;
+width: 100%;
+overflow: visible;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+/* BANNER */
+
+    .top-bar {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: white;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      margin-bottom: 1rem;
+    }
+    
+    .logo {
+      height: 70px;
+    }
+
+.menu-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-right: 8px; /* afstand van de rechterrand */
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 24px;
+  width: 32px;
+}
+
+.menu-toggle span {
+  display: block;
+  height: 4px;
+  width: 100%;
+  background-color: #002f5f;
+  border-radius: 2px;
+}
+
+    .dropdown {
+      background-color: #e0f0ff;
+      border-radius: 12px;
+      padding: 1rem;
+      width: 100%;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .dropdown a {
+      display: block;
+      text-decoration: none;
+      color: #002f5f;
+      padding: 0.75rem;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      background-color: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .dropdown a:hover {
+      background-color: #d6eaff;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+
+.intro,
+.info-screen,
+.chatbot-screen,
+.options,
+.chatbot-intro-screen,
+.game-screen {
+  max-width: 451px; /* zelfde als container */
+min-width: 450px
+  margin: 0 auto 1rem auto;
+  padding: 1.5rem;
+  border-radius: 24px;
+  background-color: #fff;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0); /* force stacking context */
+  min-height: calc(100vh - 160px); /* hoogte van het scherm - banner/logo onderaan */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* of center, afhankelijk van layout */
+}
+
+.chatbot-intro-screen {
+  padding-bottom: 140px; /* verhoog naar wens */
+}
+
+
+.underline-title {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  z-index: 0;
+  line-height: 1.2; /* belangrijk voor positionering */
+}
+
+.underline-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0.05em; /* dichter tegen de tekst aan */
+  height: 0.2em;   /* dunner en subtieler */
+  width: 100%;
+  background-color: #d6eaff;
+  z-index: -1;
+  border-radius: 4px;
+}
+
+    #game-screen h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0.1em;
+  height: 8px;
+  width: 100%;
+  background-color: #d6eaff;
+  z-index: -1;
+}
+
+
+    .speech-bubble {
+      background: #e8f6ff;
+      border-radius: 16px;
+      padding: 1rem 1.2rem;
+      margin: 1.4rem auto;
+      max-width: 95%;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      position: relative;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 80%;
+      transform: translateX(-50%);
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 12px solid #e8f6ff;
+    }
+
+
+    .highlight {
+      color: #009fe3;
+      font-weight: bold;
+    }
+
+    .intro-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+
+    .intro-buttons button {
+      width: 220px;
+      max-width: 90%;
+      background-color: #002f5f;
+      color: white;
+      border: none;
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .avatar {
+      position: absolute;
+      bottom: 20px;
+      right: -37px;
+      height: 420px;
+      max-height: 90vh;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+
+    @media (max-width: 480px) {
+      .avatar {
+        height: 340px;
+        right: -20px;
+      }
+      .intro h2, .intro p {
+        font-size: 0.95rem;
+      }
+  .game-choice-card {
+    width: 100%;
+    max-width: 420px;
+  }
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+.centered-bubble {
+  position: relative;
+  background: #e8f6ff;
+  border-radius: 16px;
+  padding: 1rem 1.2rem;
+left: -8%;
+  max-width: 95%;
+  margin: 1.4rem auto;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.upper-bubble {
+  position: relative;
+  background: #e8f6ff;
+  border-radius: 16px;
+  padding: 1rem 1.2rem;
+  max-width: 95%;
+  margin: 1.4rem auto;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+.large-bubble {
+  padding: 1.4rem 1.4rem;
+  max-width: 95%;
+}
+
+.speech-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  z-index: 2;
+}
+
+
+  .tetris-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #e8f6ff;
+    padding: 1rem;
+    width: 100%;
+    border-radius: 16px;
+    margin-top: 1rem;
+  }
+
+  .options h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #1b365d;
+    position: relative;
+  }
+
+  .options h2::after {
+    background-color: #eaf5fc;
+    height: 6px;
+  }
+
+.tile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.tile {
+  background-color: #eaf5fc;
+  border-radius: 24px;
+  padding: 1rem;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tile:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.tile img {
+  width: 28px;
+  height: 28px;
+  margin-bottom: 0.5rem;
+}
+
+.tile p {
+  margin-top: auto;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1b365d;
+}
+
+    .options button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      margin: 0.5rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+background-color: #002f5f;
+      color: white
+    }
+
+.chatbot-screen button, .game-screen button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      margin: 0.5rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+background-color: #002f5f;
+      color: white
+    }
+
+.options button,
+.intro-buttons button,
+.back-btn,
+.game-screen button,
+.chatbot-intro-screen button {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.options button:hover,
+.intro-buttons button:hover,
+.back-btn:hover,
+.game-screen button:hover, .chatbot-screen button:hover, .chatbot-intro-screen button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.game-screen button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      margin: 0.5rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+background-color: #002f5f;
+      color: white
+    }
+
+
+.game-choice-card {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 360px;
+  box-sizing: border-box;
+  border-radius: 24px;
+  padding: 2rem 1rem 1.5rem;
+  margin: 1.2rem 0;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  min-height: 160px;
+  overflow: hidden;
+  background-color: #e8f6ff; /* fallback kleur */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.tetris-card {
+  background-image: url('tetris-bg.svg');
+}
+
+.packman-card {
+  background-image: url('packman.svg');
+}
+.game-overlay {
+  position: relative;
+  z-index: 2;
+}
+
+.game-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #002f5f;
+  margin-bottom: 1rem;
+}
+
+.game-start-btn {
+  background-color: #002f5f;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+
+  #tetris {
+    background: white;
+    border: 2px solid #cce5ff;
+    border-radius: 6px;
+  }
+
+  .tetris-info {
+    margin-left: 1rem;
+    text-align: center;
+    color: #002f5f;
+  }
+
+  .info-box {
+    background: white;
+    padding: 0.5rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+
+  .info-box p {
+    margin: 0.3rem 0;
+  }
+
+  #next {
+    width: 80px;
+    height: 80px;
+    margin: auto;
+    display: grid;
+    place-items: center;
+  }
+
+  .chatbot-screen {
+    background-color: #e8f6ff;
+  }
+
+  .chatbot-screen h1::after {
+    display: none;
+  }
+
+.chat-start-btn {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  background-color: #002f5f;
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.options h2 {
+  margin-top: 7rem;
+}
+
+
+.small-back-btn {
+  margin-top: 1rem;
+  background-color: #002f5f;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.chat-bubble {
+  display: flex;
+  align-items: flex-start;
+  margin: 1rem 0;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.chat-avatar {
+  width: 32px;
+  height: 32px;
+  margin-right: 0.8rem;
+  border-radius: 50%;
+}
+
+.chat-input {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 0.6rem;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+}
+
+.chat-input button {
+  background-color: #002f5f;
+  color: white;
+  border: none;
+  padding: 0 1rem;
+  border-radius: 12px;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+input[type="text"] {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+
+
+  .uz-logo {
+    margin-top: 2rem;
+    height: 200px;
+  }
+
+.send-button {
+  background-color: #002f6c; /* Donkerblauw zoals in je design */
+  border: none;
+  padding: 0 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+height: 44px;
+  margin-left: 8px;
+}
+
+.send-button svg {
+  width: 20px;
+  height: 20px;
+  stroke: white;
+}
+
+.video-screen h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #1b365d;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.video-card {
+  background-color: #eaf5fc;
+  border-radius: 24px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.video-content h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.3rem;
+  color: #002f5f;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.video-btn {
+  background-color: white;
+  color: #002f5f;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.video-btn:hover {
+  background-color: #d6eaff;
+}
+
+.video-icon {
+  width: 48px;
+  height: 48px;
+}
+
+</style>

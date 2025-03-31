@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UZ Leuven Wachtruimte App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="cleanscript3forgit.css">
+</style>
+
+</head>
+<body>
+<div class="container">
+  <header class="top-bar">
+    <img src="uz-leuven-logo.png" alt="UZ Leuven Logo" class="logo" />
+    <button class="menu-toggle" onclick="toggleMenu()">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+  </header>
+
+  <nav id="dropdown-menu" class="dropdown hidden">
+    <a href="#" onclick="goHome()">🏠 Terug naar beginscherm</a>
+    <a href="#" onclick="showChatbot()">💬 Stel een vraag</a>
+    <a href="#" onclick="showOptions()">🎮 Ontspanningsopties</a>
+  </nav>
+
+  <main id="main-content">
+<!-- Scherm 1: Intro -->
+<section class="intro" id="intro-screen">
+<div class="container">
+<h2><span class="underline-title">Dag Johan!</span></h2>
+
+  <div class="speech-bubble upper-bubble">
+    <p><span class="highlight">Gemiddelde wachttijd</span> voor een CT-scan op dinsdagnamiddag: 
+      <a href="#" class="highlight">15 tot 17 minuten</a></p>
+    <div class="bubble-pointer"></div>
+  </div>
+
+  <div class="speech-bubble centered-bubble">
+    <p> Wil je iets leuks proberen terwijl je wacht?</p>
+    <div class="bubble-pointer"></div>
+  </div>
+
+  <div class="intro-buttons">
+    <button onclick="showOptions()">Ja, graag!</button>
+    <button onclick="showInfoScreen()">Nee, bedankt.</button>
+  </div>
+
+  <img src="avatar-arts.png" alt="UZ arts avatar" class="avatar" />
+</section>
+
+<!-- Scherm 2: Info -->
+<section class="info-screen hidden" id="info-screen">
+<div class="container">
+<div class="title-container">
+  <div class="title-highlight"></div>
+<h2><span class="underline-title">Dag Johan!</span></h2>
+</div>
+
+  <div class="speech-bubble upper-bubble large-bubble">
+    <p>Geen probleem! Je kunt altijd later terugkomen als je toch even wil ontspannen.</p>
+    <div class="bubble-pointer"></div>
+  </div>
+
+  <div class="speech-bubble centered-bubble large-bubble">
+    <p> Zit je met <span class="highlight">een vraag over je scan of iets praktisch</span> tijdens het wachten?</p>
+    <div class="bubble-pointer"></div>
+  </div>
+
+  <div class="intro-buttons">
+    <button onclick="showChatbot()">Stel een vraag</button>
+    <button onclick="goHome()">Terug naar start</button>
+  </div>
+
+  <img src="avatar-arts.png" alt="UZ arts avatar" class="avatar" />
+</section>
+
+
+
+    <section class="options hidden" id="options-screen">
+<h2><span class="underline-title">Hoe kunnen we je helpen?</span></h2>
+<div class="container">
+      <div class="tile-grid">
+        <div class="tile">
+          <img src="icon-mindfulness.svg" alt="Mindfulness">
+          <p> Ontspan met mindfulness > </p>
+        </div>
+        <div class="tile" onclick="showChatbot()">
+          <img src="icon-question.svg" alt="Vraag">
+          <p>Stel je vragen > </p>
+        </div>
+        <div class="tile" onclick="showVideoScreen()">
+          <img src="icon-video.svg" alt="Video">
+          <p>Kijk video's > </p>
+        </div>
+        <div class="tile" onclick="showGame()">
+          <img src="icon-game.svg" alt="Game">
+          <p>Speel een spel > </p>
+        </div>
+  <button onclick="goHome()" >< Terug</button>
+      </div>
+    </section>
+
+
+
+<!-- Eerste chatbot intro scherm -->
+<section class="chatbot-intro-screen hidden" id="chatbot-intro-screen">
+  <div class="container">
+<h2>
+  <span class="underline-title">Dag Johan!</span></h2>
+<h2>
+  <span class="underline-title"> Ik ben de <span class="highlight">UZ carebot</span>.
+</h2>
+
+    <p>Heb je vragen over je CT-scan of wil je meer informatie terwijl je wacht?<br>Onze geverifieerde chatbot staat voor je klaar!</p>
+    <button onclick="openChatConversation()" class="chat-start-btn">Stel een vraag</button>
+    <button onclick="goBack()" class="small-back-btn">&lt; Terug</button>
+    <img src="avatar-arts.png" alt="UZ arts avatar" class="avatar" />
+  </div>
+</section>
+
+<!-- Tweede chatbot conversatie scherm -->
+<section class="chatbot-screen hidden" id="chatbot-screen">
+  <div class="container">
+    <div class="chat-bubble received">
+      <img src="chatboticon.svg" alt="Chatbot" class="chat-avatar" />
+      <p>Hallo en een fijne dag gewenst! 👋 Ik ben de <span class="highlight">UZ Carebot</span>, jouw digitale assistent in UZ Gasthuisberg.</p>
+    </div>
+    <div class="chat-bubble received">
+      <img src="chatboticon.svg" alt="Chatbot" class="chat-avatar" />
+      <p>Ik help je graag met informatie over je afspraak, wachttijden en andere vragen terwijl je wacht.</p>
+    </div>
+
+    <div class="chat-input">
+      <input type="text" placeholder="Typ je vraag..." />
+<button class="send-button">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 2L11 13"></path>
+    <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+  </svg>
+</button>
+    </div>
+    <button onclick="goBackToIntro()" class="small-back-btn">&lt; Terug</button>
+  </div>
+</section>
+
+<section class="video-screen hidden" id="video-screen">
+  <div class="container">
+    <h2><span class="underline-title">Kies een video-optie!</span></h2>
+
+    <div class="video-card">
+      <div class="video-content">
+        <h3>KIJK EEN<br>DOCUMENTAIRE</h3>
+        <button class="video-btn">SELECTEER &gt;</button>
+      </div>
+      <img src="icon-camera.svg" alt="Camera" class="video-icon" />
+    </div>
+
+    <div class="video-card">
+      <div class="video-content">
+        <h3>UZ LEUVEN INFO</h3>
+        <button class="video-btn">START</button>
+      </div>
+      <img src="icon-hospital.svg" alt="UZ" class="video-icon" />
+    </div>
+
+    <button onclick="goBack()" class="back-btn">< Terug</button>
+  </div>
+</section>
+
+
+
+<section class="game-screen hidden" id="game-screen">
+  <div class="container">
+    <h2>Kies een spel!</h2>
+<div class="game-choice-card tetris-card">
+  <div class="game-overlay">
+    <div class="game-title">TETRIS</div>
+    <button class="game-start-btn" onclick="startGame('tetris')">START</button>
+  </div>
+  </div>
+      <div class="game-choice-card packman-card">
+       <div class="game-overlay">
+        <div class="game-title">PACKMAN</div>
+        <button class="game-start-btn" onclick="alert('Packman nog niet beschikbaar')">START</button>
+  </div>
+</div>
+    <button onclick="goBack()" class="back-btn">&lt; Terug</button>
+  </div>
+</section>
+    <section class="game-screen hidden" id="tetris-screen">
+      <h2>TETRIS</h2>
+      <div class="tetris-layout">
+        <canvas id="tetris" width="240" height="400"></canvas>
+        <div class="tetris-info">
+          <div class="info-box">
+            <p><strong>NEXT:</strong></p>
+            <canvas id="next" width="80" height="80"></canvas>
+          </div>
+          <div class="info-box">
+            <p><strong>LEVEL:</strong></p>
+            <p id="level">01</p>
+          </div>
+          <button class="pause-btn" onclick="pauseGame()">PAUZE</button>
+        </div>
+       </div>
+<div id="tetris-controls" style="margin-top: 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+  <button onclick="playerRotate(1)" style="background-color: #27BEFF;">
+    ⟳
+  </button>
+  <div style="display: flex; gap: 1rem;">
+    <button onclick="playerMove(-1)" style="background-color: #27BEFF;">←</button>
+    <button onclick="playerDrop()" style="background-color: #27BEFF;">↓</button>
+    <button onclick="playerMove(1)" style="background-color: #27BEFF;">→</button>
+  </div>
+      </div>
+      <button onclick="resumeGame()" class="resume-btn hidden" id="resume-btn">Speel verder</button>
+<button onclick="goBack2()" class="back-btn">< Terug</button>
+    </section>
+  </main>
+
+    <img src="uz-leuven-logo.png" alt="UZ Leuven Logo" class="uz-logo" />
+  </div>
+
+
+  <script src="cleanscript3scripts.js"></script>
+</body>
+</html>
