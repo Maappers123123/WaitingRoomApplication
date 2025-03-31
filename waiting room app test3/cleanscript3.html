@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UZ Leuven Wachtruimte App</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600&display=swap" rel="stylesheet">
+
+
+<style>
+
+
+h1, h2, p, button {
+  font-family: 'Roboto Slab', serif;
+}
+
+body {
+  font-family: 'Roboto Slab', serif;
+}
+
+.hidden {
+  display: none !important;
+}
+   *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+main > section {
+  max-width: 100%;
+  margin: auto;
+  padding: 1rem;
+}
+
+h1, h2 {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  z-index: 0;
+}
+
+    .container {
+      max-width: 480px;
+      margin: auto;
+width: 100%;
+overflow: visible;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+/* BANNER */
+
+    .top-bar {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: white;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      margin-bottom: 1rem;
+    }
+    
+    .logo {
+      height: 70px;
+    }
+
+.menu-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-right: 8px; /* afstand van de rechterrand */
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 24px;
+  width: 32px;
+}
+
+.menu-toggle span {
+  display: block;
+  height: 4px;
+  width: 100%;
+  background-color: #002f5f;
+  border-radius: 2px;
+}
+
+    .dropdown {
+      background-color: #e0f0ff;
+      border-radius: 12px;
+      padding: 1rem;
+      width: 100%;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .dropdown a {
+      display: block;
+      text-decoration: none;
+      color: #002f5f;
+      padding: 0.75rem;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      background-color: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .dropdown a:hover {
+      background-color: #d6eaff;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+
+.intro,
+.info-screen,
+.chatbot-screen,
+.options,
+.chatbot-intro-screen,
+.game-screen {
+  max-width: 451px; /* zelfde als container */
+min-width: 450px
+  margin: 0 auto 1rem auto;
+  padding: 1.5rem;
+  border-radius: 24px;
+  background-color: #fff;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0); /* force stacking context */
+  min-height: calc(100vh - 160px); /* hoogte van het scherm - banner/logo onderaan */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* of center, afhankelijk van layout */
+}
+
+.chatbot-intro-screen {
+  padding-bottom: 140px; /* verhoog naar wens */
+}
+
+
+.underline-title {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  z-index: 0;
+  line-height: 1.2; /* belangrijk voor positionering */
+}
+
+.underline-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0.05em; /* dichter tegen de tekst aan */
+  height: 0.2em;   /* dunner en subtieler */
+  width: 100%;
+  background-color: #d6eaff;
+  z-index: -1;
+  border-radius: 4px;
+}
+
+    #game-screen h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0.1em;
+  height: 8px;
+  width: 100%;
+  background-color: #d6eaff;
+  z-index: -1;
+}
+
+
+    .speech-bubble {
+      background: #e8f6ff;
+      border-radius: 16px;
+      padding: 1rem 1.2rem;
+      margin: 1.4rem auto;
+      max-width: 95%;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      position: relative;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 80%;
+      transform: translateX(-50%);
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 12px solid #e8f6ff;
+    }
+
+
+    .highlight {
+      color: #009fe3;
+      font-weight: bold;
+    }
+
+    .intro-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+
+    .intro-buttons button {
+      width: 220px;
+      max-width: 90%;
+      background-color: #002f5f;
+      color: white;
+      border: none;
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .avatar {
+      position: absolute;
+      bottom: 20px;
+      right: -37px;
+      height: 420px;
+      max-height: 90vh;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+
+    @media (max-width: 480px) {
+      .avatar {
+        height: 340px;
+        right: -20px;
+      }
+      .intro h2, .intro p {
+        font-size: 0.95rem;
+      }
+  .game-choice-card {
+    width: 100%;
+    max-width: 420px;
+  }
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+.centered-bubble {
+  position: relative;
+  background: #e8f6ff;
+  border-radius: 16px;
+  padding: 1rem 1.2rem;
+left: -8%;
+  max-width: 95%;
+  margin: 1.4rem auto;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.upper-bubble {
+  position: relative;
+  background: #e8f6ff;
+  border-radius: 16px;
+  padding: 1rem 1.2rem;
+  max-width: 95%;
+  margin: 1.4rem auto;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+.large-bubble {
+  padding: 1.4rem 1.4rem;
+  max-width: 95%;
+}
+
+.speech-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  z-index: 2;
+}
+
+
+  .tetris-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #e8f6ff;
+    padding: 1rem;
+    width: 100%;
+    border-radius: 16px;
+    margin-top: 1rem;
+  }
+
+  .options h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #1b365d;
+    position: relative;
+  }
+
+  .options h2::after {
+    background-color: #eaf5fc;
+    height: 6px;
+  }
+
+.tile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.tile {
+  background-color: #eaf5fc;
+  border-radius: 24px;
+  padding: 1rem;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tile:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.tile img {
+  width: 28px;
+  height: 28px;
+  margin-bottom: 0.5rem;
+}
+
+.tile p {
+  margin-top: auto;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1b365d;
+}
+
+    .options button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      margin: 0.5rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+background-color: #002f5f;
+      color: white
+    }
+
+.chatbot-screen button, .game-screen button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      margin: 0.5rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+background-color: #002f5f;
+      color: white
+    }
+
+.options button,
+.intro-buttons button,
+.back-btn,
+.game-screen button,
+.chatbot-intro-screen button {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.options button:hover,
+.intro-buttons button:hover,
+.back-btn:hover,
+.game-screen button:hover, .chatbot-screen button:hover, .chatbot-intro-screen button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.game-screen button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      margin: 0.5rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+background-color: #002f5f;
+      color: white
+    }
+
+
+.game-choice-card {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 360px;
+  box-sizing: border-box;
+  border-radius: 24px;
+  padding: 2rem 1rem 1.5rem;
+  margin: 1.2rem 0;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  min-height: 160px;
+  overflow: hidden;
+  background-color: #e8f6ff; /* fallback kleur */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.tetris-card {
+  background-image: url('tetris-bg.svg');
+}
+
+.packman-card {
+  background-image: url('packman.svg');
+}
+.game-overlay {
+  position: relative;
+  z-index: 2;
+}
+
+.game-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #002f5f;
+  margin-bottom: 1rem;
+}
+
+.game-start-btn {
+  background-color: #002f5f;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+
+  #tetris {
+    background: white;
+    border: 2px solid #cce5ff;
+    border-radius: 6px;
+  }
+
+  .tetris-info {
+    margin-left: 1rem;
+    text-align: center;
+    color: #002f5f;
+  }
+
+  .info-box {
+    background: white;
+    padding: 0.5rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+
+  .info-box p {
+    margin: 0.3rem 0;
+  }
+
+  #next {
+    width: 80px;
+    height: 80px;
+    margin: auto;
+    display: grid;
+    place-items: center;
+  }
+
+  .chatbot-screen {
+    background-color: #e8f6ff;
+  }
+
+  .chatbot-screen h1::after {
+    display: none;
+  }
+
+.chat-start-btn {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  background-color: #002f5f;
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.options h2 {
+  margin-top: 7rem;
+}
+
+
+.small-back-btn {
+  margin-top: 1rem;
+  background-color: #002f5f;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.chat-bubble {
+  display: flex;
+  align-items: flex-start;
+  margin: 1rem 0;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.chat-avatar {
+  width: 32px;
+  height: 32px;
+  margin-right: 0.8rem;
+  border-radius: 50%;
+}
+
+.chat-input {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 0.6rem;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+}
+
+.chat-input button {
+  background-color: #002f5f;
+  color: white;
+  border: none;
+  padding: 0 1rem;
+  border-radius: 12px;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+input[type="text"] {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+
+
+  .uz-logo {
+    margin-top: 2rem;
+    height: 200px;
+  }
+
+.send-button {
+  background-color: #002f6c; /* Donkerblauw zoals in je design */
+  border: none;
+  padding: 0 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+height: 44px;
+  margin-left: 8px;
+}
+
+.send-button svg {
+  width: 20px;
+  height: 20px;
+  stroke: white;
+}
+
+.video-screen h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #1b365d;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.video-card {
+  background-color: #eaf5fc;
+  border-radius: 24px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.video-content h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.3rem;
+  color: #002f5f;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.video-btn {
+  background-color: white;
+  color: #002f5f;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.video-btn:hover {
+  background-color: #d6eaff;
+}
+
+.video-icon {
+  width: 48px;
+  height: 48px;
+}
+
+
+
+</style>
+
+</head>
+<body>
+<div class="container">
+  <header class="top-bar">
+    <img src="uz-leuven-logo.png" alt="UZ Leuven Logo" class="logo" />
+    <button class="menu-toggle" onclick="toggleMenu()">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+  </header>
+
+  <nav id="dropdown-menu" class="dropdown hidden">
+    <a href="#" onclick="goHome()">🏠 Terug naar beginscherm</a>
+    <a href="#" onclick="showChatbot()">💬 Stel een vraag</a>
+    <a href="#" onclick="showOptions()">🎮 Ontspanningsopties</a>
+  </nav>
+
+  <main id="main-content">
+<!-- Scherm 1: Intro -->
+<section class="intro" id="intro-screen">
+<div class="container">
+<h2><span class="underline-title">Dag Johan!</span></h2>
+
+  <div class="speech-bubble upper-bubble">
+    <p><span class="highlight">Gemiddelde wachttijd</span> voor een CT-scan op dinsdagnamiddag: 
+      <a href="#" class="highlight">15 tot 17 minuten</a></p>
+    <div class="bubble-pointer"></div>
+  </div>
+
+  <div class="speech-bubble centered-bubble">
+    <p> Wil je iets leuks proberen terwijl je wacht?</p>
+    <div class="bubble-pointer"></div>
+  </div>
+
+  <div class="intro-buttons">
+    <button onclick="showOptions()">Ja, graag!</button>
+    <button onclick="showInfoScreen()">Nee, bedankt.</button>
+  </div>
+
+  <img src="avatar-arts.png" alt="UZ arts avatar" class="avatar" />
+</section>
+
+<!-- Scherm 2: Info -->
+<section class="info-screen hidden" id="info-screen">
+<div class="container">
+<div class="title-container">
+  <div class="title-highlight"></div>
+<h2><span class="underline-title">Dag Johan!</span></h2>
+</div>
+
+  <div class="speech-bubble upper-bubble large-bubble">
+    <p>Geen probleem! Je kunt altijd later terugkomen als je toch even wil ontspannen.</p>
+    <div class="bubble-pointer"></div>
+  </div>
+
+  <div class="speech-bubble centered-bubble large-bubble">
+    <p> Zit je met <span class="highlight">een vraag over je scan of iets praktisch</span> tijdens het wachten?</p>
+    <div class="bubble-pointer"></div>
+  </div>
+
+  <div class="intro-buttons">
+    <button onclick="showChatbot()">Stel een vraag</button>
+    <button onclick="goHome()">Terug naar start</button>
+  </div>
+
+  <img src="avatar-arts.png" alt="UZ arts avatar" class="avatar" />
+</section>
+
+
+
+    <section class="options hidden" id="options-screen">
+<h2><span class="underline-title">Hoe kunnen we je helpen?</span></h2>
+<div class="container">
+      <div class="tile-grid">
+        <div class="tile">
+          <img src="icon-mindfulness.svg" alt="Mindfulness">
+          <p> Ontspan met mindfulness > </p>
+        </div>
+        <div class="tile" onclick="showChatbot()">
+          <img src="icon-question.svg" alt="Vraag">
+          <p>Stel je vragen > </p>
+        </div>
+        <div class="tile" onclick="showVideoScreen()">
+          <img src="icon-video.svg" alt="Video">
+          <p>Kijk video's > </p>
+        </div>
+        <div class="tile" onclick="showGame()">
+          <img src="icon-game.svg" alt="Game">
+          <p>Speel een spel > </p>
+        </div>
+  <button onclick="goHome()" >< Terug</button>
+      </div>
+    </section>
+
+
+
+<!-- Eerste chatbot intro scherm -->
+<section class="chatbot-intro-screen hidden" id="chatbot-intro-screen">
+  <div class="container">
+<h2>
+  <span class="underline-title">Dag Johan!</span></h2>
+<h2>
+  <span class="underline-title"> Ik ben de <span class="highlight">UZ carebot</span>.
+</h2>
+
+    <p>Heb je vragen over je CT-scan of wil je meer informatie terwijl je wacht?<br>Onze geverifieerde chatbot staat voor je klaar!</p>
+    <button onclick="openChatConversation()" class="chat-start-btn">Stel een vraag</button>
+    <button onclick="goBack()" class="small-back-btn">&lt; Terug</button>
+    <img src="avatar-arts.png" alt="UZ arts avatar" class="avatar" />
+  </div>
+</section>
+
+<!-- Tweede chatbot conversatie scherm -->
+<section class="chatbot-screen hidden" id="chatbot-screen">
+  <div class="container">
+    <div class="chat-bubble received">
+      <img src="chatboticon.svg" alt="Chatbot" class="chat-avatar" />
+      <p>Hallo en een fijne dag gewenst! 👋 Ik ben de <span class="highlight">UZ Carebot</span>, jouw digitale assistent in UZ Gasthuisberg.</p>
+    </div>
+    <div class="chat-bubble received">
+      <img src="chatboticon.svg" alt="Chatbot" class="chat-avatar" />
+      <p>Ik help je graag met informatie over je afspraak, wachttijden en andere vragen terwijl je wacht.</p>
+    </div>
+
+    <div class="chat-input">
+      <input type="text" placeholder="Typ je vraag..." />
+<button class="send-button">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 2L11 13"></path>
+    <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+  </svg>
+</button>
+    </div>
+    <button onclick="goBackToIntro()" class="small-back-btn">&lt; Terug</button>
+  </div>
+</section>
+
+<section class="video-screen hidden" id="video-screen">
+  <div class="container">
+    <h2><span class="underline-title">Kies een video-optie!</span></h2>
+
+    <div class="video-card">
+      <div class="video-content">
+        <h3>KIJK EEN<br>DOCUMENTAIRE</h3>
+        <button class="video-btn">SELECTEER &gt;</button>
+      </div>
+      <img src="icon-camera.svg" alt="Camera" class="video-icon" />
+    </div>
+
+    <div class="video-card">
+      <div class="video-content">
+        <h3>UZ LEUVEN INFO</h3>
+        <button class="video-btn">START</button>
+      </div>
+      <img src="icon-hospital.svg" alt="UZ" class="video-icon" />
+    </div>
+
+    <button onclick="goBack()" class="back-btn">< Terug</button>
+  </div>
+</section>
+
+
+
+<section class="game-screen hidden" id="game-screen">
+  <div class="container">
+    <h2>Kies een spel!</h2>
+<div class="game-choice-card tetris-card">
+  <div class="game-overlay">
+    <div class="game-title">TETRIS</div>
+    <button class="game-start-btn" onclick="startGame('tetris')">START</button>
+  </div>
+  </div>
+      <div class="game-choice-card packman-card">
+       <div class="game-overlay">
+        <div class="game-title">PACKMAN</div>
+        <button class="game-start-btn" onclick="alert('Packman nog niet beschikbaar')">START</button>
+  </div>
+</div>
+    <button onclick="goBack()" class="back-btn">&lt; Terug</button>
+  </div>
+</section>
+    <section class="game-screen hidden" id="tetris-screen">
+      <h2>TETRIS</h2>
+      <div class="tetris-layout">
+        <canvas id="tetris" width="240" height="400"></canvas>
+        <div class="tetris-info">
+          <div class="info-box">
+            <p><strong>NEXT:</strong></p>
+            <canvas id="next" width="80" height="80"></canvas>
+          </div>
+          <div class="info-box">
+            <p><strong>LEVEL:</strong></p>
+            <p id="level">01</p>
+          </div>
+          <button class="pause-btn" onclick="pauseGame()">PAUZE</button>
+        </div>
+       </div>
+<div id="tetris-controls" style="margin-top: 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+  <button onclick="playerRotate(1)" style="background-color: #27BEFF;">
+    ⟳
+  </button>
+  <div style="display: flex; gap: 1rem;">
+    <button onclick="playerMove(-1)" style="background-color: #27BEFF;">←</button>
+    <button onclick="playerDrop()" style="background-color: #27BEFF;">↓</button>
+    <button onclick="playerMove(1)" style="background-color: #27BEFF;">→</button>
+  </div>
+      </div>
+      <button onclick="resumeGame()" class="resume-btn hidden" id="resume-btn">Speel verder</button>
+<button onclick="goBack2()" class="back-btn">< Terug</button>
+    </section>
+  </main>
+
+    <img src="uz-leuven-logo.png" alt="UZ Leuven Logo" class="uz-logo" />
+  </div>
+<script>
+    function toggleMenu() {
+      const menu = document.getElementById('dropdown-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    function goHome() {
+      showOnlySection('intro-screen');
+    }
+
+    function showOptions() {
+      showOnlySection('options-screen');
+    }
+    
+    function goBack() {
+      showOnlySection('options-screen');
+    }
+    
+    function goBack2() {
+      showOnlySection('game-screen');
+    }
+
+    function showInfoScreen() {
+      showOnlySection('info-screen');
+    }
+
+    function showChatbot() {
+      showOnlySection('chatbot-intro-screen');
+    }
+
+function openChatConversation() {
+  showOnlySection('chatbot-screen');
+}
+
+function goBackToIntro() {
+  showOnlySection('chatbot-intro-screen');
+}
+
+
+    function openRelaxation() {
+      alert("Ontspanningsopties geopend");
+    }
+
+    function showGame() {
+      showOnlySection('game-screen');
+    }
+
+function showVideoScreen() {
+  showOnlySection('video-screen');
+}
+
+
+    function showOnlySection(id) {
+      const sections = document.querySelectorAll('main > section');
+      sections.forEach(s => s.classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    const canvas = document.getElementById('tetris');
+    const context = canvas.getContext('2d');
+    context.scale(20, 20);
+
+    const nextCanvas = document.getElementById('next');
+    const nextContext = nextCanvas.getContext('2d');
+    nextContext.scale(20, 20);
+
+    let arena, player, nextPiece;
+    let dropCounter = 0;
+    let dropInterval = 1000;
+    let lastTime = 0;
+    let paused = false;
+    let level = 1;
+
+    const colors = [null,'#caa6ff','#67d6ff','#b5f4be','#fcd6ff','#ffcb8a','#ffe57f','#3877FF'];
+
+    const pieces = 'ILJOTSZ';
+
+    function createMatrix(w, h) {
+      const matrix = [];
+      while (h--) matrix.push(new Array(w).fill(0));
+      return matrix;
+    }
+
+    function createPiece(type) {
+      if (type === 'T') return [[0, 1, 0], [1, 1, 1], [0, 0, 0]];
+      if (type === 'O') return [[2, 2], [2, 2]];
+      if (type === 'L') return [[0, 3, 0], [0, 3, 0], [0, 3, 3]];
+      if (type === 'J') return [[0, 4, 0], [0, 4, 0], [4, 4, 0]];
+      if (type === 'I') return [[0, 5, 0, 0], [0, 5, 0, 0], [0, 5, 0, 0], [0, 5, 0, 0]];
+      if (type === 'S') return [[0, 6, 6], [6, 6, 0], [0, 0, 0]];
+      if (type === 'Z') return [[7, 7, 0], [0, 7, 7], [0, 0, 0]];
+    }
+
+function drawMatrix(matrix, offset, ctx = context) {
+  matrix.forEach((row, y) => {
+    row.forEach((value, x) => {
+      if (value !== 0) {
+        ctx.fillStyle = colors[value];
+        ctx.fillRect(x + offset.x, y + offset.y, 1, 1);
+      }
+    });
+  });
+}
+
+function updateNextCanvas() {
+  nextContext.clearRect(0, 0, nextCanvas.width, nextCanvas.height);
+
+  const gridSize = 4; // 4x4 blokken
+  const matrix = nextPiece;
+  const matrixWidth = matrix[0].length;
+  const matrixHeight = matrix.length;
+
+  const offsetX = Math.floor((gridSize - matrixWidth) / 2);
+  const offsetY = Math.floor((gridSize - matrixHeight) / 2);
+
+  drawMatrix(matrix, { x: offsetX, y: offsetY }, nextContext);
+}
+
+    function update(time = 0) {
+      if (paused) return;
+      const deltaTime = time - lastTime;
+      lastTime = time;
+      dropCounter += deltaTime;
+      if (dropCounter > dropInterval) {
+        playerDrop();
+      }
+      draw();
+      requestAnimationFrame(update);
+    }
+
+    function draw() {
+      context.fillStyle = '#fff';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      drawMatrix(arena, { x: 0, y: 0 });
+      drawMatrix(player.matrix, player.pos);
+    }
+
+function playerDrop() {
+  player.pos.y++;
+  if (collide(arena, player)) {
+    player.pos.y--;
+    merge(arena, player);
+    arenaSweep(); // <- hier toevoegen
+    playerReset();
+  }
+  dropCounter = 0;
+}
+
+    function collide(arena, player) {
+      const [m, o] = [player.matrix, player.pos];
+      for (let y = 0; y < m.length; ++y) {
+        for (let x = 0; x < m[y].length; ++x) {
+          if (m[y][x] !== 0 &&
+              (arena[y + o.y] && arena[y + o.y][x + o.x]) !== 0) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    function merge(arena, player) {
+      player.matrix.forEach((row, y) => {
+        row.forEach((value, x) => {
+          if (value !== 0) {
+            arena[y + player.pos.y][x + player.pos.x] = value;
+          }
+        });
+      });
+    }
+
+function playerReset() {
+  player.matrix = nextPiece;
+  nextPiece = createPiece(pieces[Math.floor(Math.random() * pieces.length)]);
+  updateNextCanvas(); // <- hier!
+  player.pos.y = 0;
+  player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
+  if (collide(arena, player)) {
+    arena.forEach(row => row.fill(0));
+    level = 1;
+    document.getElementById('level').textContent = '01';
+  }
+}
+
+    function playerMove(dir) {
+      player.pos.x += dir;
+      if (collide(arena, player)) {
+        player.pos.x -= dir;
+      }
+    }
+
+    function rotate(matrix, dir) {
+      for (let y = 0; y < matrix.length; ++y) {
+        for (let x = 0; x < y; ++x) {
+          [matrix[x][y], matrix[y][x]] = [matrix[y][x], matrix[x][y]];
+        }
+      }
+      if (dir > 0) matrix.forEach(row => row.reverse());
+      else matrix.reverse();
+    }
+
+    function playerRotate(dir) {
+      const pos = player.pos.x;
+      let offset = 1;
+      rotate(player.matrix, dir);
+      while (collide(arena, player)) {
+        player.pos.x += offset;
+        offset = -(offset + (offset > 0 ? 1 : -1));
+        if (offset > player.matrix[0].length) {
+          rotate(player.matrix, -dir);
+          player.pos.x = pos;
+          return;
+        }
+      }
+    }
+
+function startGame(type) {
+  if (type === 'tetris') {
+    document.getElementById('game-screen').classList.add('hidden');
+    document.getElementById('tetris-screen').classList.remove('hidden');
+    arena = createMatrix(12, 20);
+    player = { pos: { x: 0, y: 0 }, matrix: null };
+    nextPiece = createPiece(pieces[Math.floor(Math.random() * pieces.length)]);
+    playerReset();
+    paused = false;
+    document.getElementById('resume-btn').classList.add('hidden');
+    lastTime = 0; // reset the clock
+    requestAnimationFrame(update); // <- HIER toevoegen
+  }
+}
+
+function arenaSweep() {
+  let rowCount = 1;
+  outer: for (let y = arena.length - 1; y >= 0; --y) {
+    for (let x = 0; x < arena[y].length; ++x) {
+      if (arena[y][x] === 0) continue outer;
+    }
+
+
+    const row = arena.splice(y, 1)[0].fill(0);
+    arena.unshift(row);
+    ++y;
+
+    // Update level or score here if needed
+    level++;
+    document.getElementById('level').textContent = String(level).padStart(2, '0');
+  }
+}
+
+
+    function pauseGame() {
+      paused = true;
+      document.getElementById('resume-btn').classList.remove('hidden');
+    }
+
+    function resumeGame() {
+      paused = false;
+      document.getElementById('resume-btn').classList.add('hidden');
+      update();
+    }
+
+    document.addEventListener('keydown', event => {
+      if (paused) return;
+      if (event.key === 'ArrowLeft') playerMove(-1);
+      else if (event.key === 'ArrowRight') playerMove(1);
+      else if (event.key === 'ArrowDown') playerDrop();
+      else if (event.key === 'q') playerRotate(-1);
+      else if (event.key === 'w') playerRotate(1);
+    });
+
+  </script>
+
